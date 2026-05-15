@@ -50,8 +50,8 @@ df["timestamp"] = pd.to_datetime(df["timestamp"], unit="ms", utc=True)
 df = df.drop_duplicates(subset=["timestamp"])
 df = df.sort_values("timestamp")
 
-df.to_csv("btc_1h_raw.csv", index=False)
+df.to_csv("Data_Files/btc_1h_raw.csv", index=False)
 
 print(df.head())
 print(df.tail())
-print(f"Saved {len(df)} rows to btc_1h_raw.csv")
+print(f"Saved {len(df)} rows to Data_Files/btc_1h_raw.csv")

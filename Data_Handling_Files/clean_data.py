@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("btc_1h_raw.csv")
+df = pd.read_csv("Data_Files/btc_1h_raw.csv")
 
 # loads the raw data
 print(df.head())
@@ -36,6 +36,6 @@ print(time_diff.value_counts().head())
 df = df.reset_index(drop=True) 
 
 # Save cleaned data
-df.to_csv("btc_1h_clean.csv", index=False)
+df.to_csv("Data_Files/btc_1h_clean.csv", index=False)
 
 print("Clean dataset saved.")
