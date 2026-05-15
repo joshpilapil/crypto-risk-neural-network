@@ -1,0 +1,9 @@
+import pandas as pd
+
+# Load labeled dataset and convert timestamp to datetime
+df = pd.read_csv("Data_Files/btc_1h_labeled.csv")
+df["timestamp"] = pd.to_datetime(df["timestamp"])
+
+# Print basic info about the dataset
+print(df.head())
+print(df.info())
