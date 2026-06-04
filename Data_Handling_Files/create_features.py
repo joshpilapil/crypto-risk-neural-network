@@ -72,6 +72,50 @@ df["macd_signal"] = df["macd"].ewm(span=9, adjust=False).mean()
 df["macd_histogram"] = df["macd"] - df["macd_signal"]
 
 # ------------------
+# Trend Strength
+# ------------------
+df["sma_20_50_ratio"] = df["sma_20"] / df["sma_50"]
+df["trend_strength"] = (df["sma_20"] - df["sma_50"]) / df["sma_50"]
+
+# ------------------
+# Volatility Regime
+# ------------------
+df["volatility_ratio_24h_72h"] = (
+    df["volatility_24h"] /
+    df["volatility_72h"]
+)
+
+# ------------------
+# ATR and ATR Percentage
+# ------------------
+df["true_range"] = df["high"] - df["low"]
+
+df["atr_14"] = (
+    df["true_range"]
+    .rolling(14)
+    .mean()
+)
+
+df["atr_pct"] = (
+    df["atr_14"] /
+    df["close"]
+)
+
+# ------------------
+# Downside Volatility
+# ------------------
+negative_returns = df["return_1h"].where(
+    df["return_1h"] < 0,
+    0
+)
+
+df["downside_volatility_24h"] = (
+    negative_returns
+    .rolling(24)
+    .std()
+)
+
+# ------------------
 # Clean Feature Dataset
 # ------------------
 df = df.dropna().reset_index(drop=True)
