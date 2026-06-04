@@ -29,15 +29,18 @@ for i in range(len(df)):
 
 # Add future drawdown to the dataframe
 df["future_drawdown_48h"] = future_drawdowns
+q1 = df["future_drawdown_48h"].quantile(0.33)
+q2 = df["future_drawdown_48h"].quantile(0.66)
+print(q1, q2)
 
 # Define risk labels based on future drawdown thresholds
 def assign_risk_label(drawdown):
-    if drawdown > -0.03:
-        return "Low"
-    elif drawdown > -0.08:
+    if drawdown <= q1:
+        return "High"
+    elif drawdown <= q2:
         return "Medium"
     else:
-        return "High"
+        return "Low"
 
 # Apply risk labeling based on future drawdown
 df["risk_label"] = df["future_drawdown_48h"].apply(assign_risk_label)
